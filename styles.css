@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: antiquewhite;
+}
+
+
+.heading {
+    max-width: 3000px;
+    background-color: white;
+    padding: 20px;
+    border-bottom: 2px solid black;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.lnk {
+    color: black;
+    text-decoration: none;
+}
+
+.lnk:visited {
+    color: black;
+}
+
+.lnk:active {
+    color: white;
+}
+
+.lnk:hover {
+    color: indianred;
+    font-size: 20px;
+}
+
+.card {
+    padding-bottom: 20px;
+}
+
+h5 {
+    font-size: 20px;
+    font-weight: normal;
+    font-style: italic;
+    color: indianred;
+}
