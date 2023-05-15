@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <title>Сортировки массивов</title>
+</head>
+<body>
+    <div class="heading">
+        <h1>Сортировки массивов</h1>
+        <p>Справочник подготвил Сабаев Денис, группа 09-261</p>
+    </div>
+    <div class="card">
+        <h3>Содержание</h3>
+        <ol>
+            <li><a href="#bubble" class="lnk">Сортировка пузырьком</a></li>
+            <li><a href="#shake" class="lnk">Шейкерная сортировка</a></li>
+            <li><a href="#insertions" class="lnk">Сортировка вставками</a></li>
+            <li><a href="#selection" class="lnk">Сортировка выбором</a></li>
+            <li><a href="#shell" class="lnk">Сортировка Шелла</a></li>
+            <li><a href="#merge" class="lnk">Сортировка слиянием</a></li>
+            <li><a href="#pyramid" class="lnk">Пирамидальная сортировка</a></li>
+            <li><a href="#quick" class="lnk">Быстрая сортировка</a></li>
+        </ol>
+    </div>
+    <div class="card" id="bubble">
+        <h3>Сортировка пузырьком</h3>
+        <p>
+            Сортировка пузырьком — один из самых известных алгоритмов сортировки. Здесь нужно последовательно сравнивать значения соседних элементов и менять числа местами, если предыдущее оказывается больше последующего. Таким образом элементы с большими значениями оказываются в конце списка, а с меньшими остаются в начале.
+        </p>
+        <p>
+            Этот алгоритм считается учебным и почти не применяется на практике из-за низкой эффективности: он медленно работает на тестах, в которых маленькие элементы (их называют «черепахами») стоят в конце массива. Однако на нём основаны многие другие методы, например, шейкерная сортировка и сортировка расчёской.
+        </p>
+        <h5>Пример реализации</h5>
+        <p class="code">
+            N = <span class="purple"> int</span>(<span class="purple">input</span>()) <br>
+            a = N * [<span class="blue">0</span>] <br>
+            <br>
+            <span class="orange">for</span> i <span class="orange">in </span><span class="purple">range</span>(N): <br>
+            &nbsp &nbsp <span class="purple">print</span>(<span class="green">'a['</span><span class="orange">,</span> i +<span class="blue"> 1</span><span class="orange">, </span><span class="green">']='</span>) <br>
+            &nbsp &nbsp a[i] = <span class="purple">int</span>(<span class="purple">input</span>())<br>
+            <br>
+            <span class="orange">for</span> i <span class="orange">in </span><span class="purple">range</span>(N - <span class="blue">1</span>): <br>
+            &nbsp &nbsp <span class="orange">for</span> j <span class="orange">in</span> <span class="purple">range</span>(N - i - <span class="blue">1</span>): <br>
+            &nbsp &nbsp &nbsp &nbsp <span class="orange">if</span> a[j] > a[j + <span class="blue"> 1</span>]: <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp a[j]<span class="orange">,</span> a[j + <span class="blue">1</span>] = a[j + <span class="blue">1</span>]<span class="orange">,</span> a[j] <br>
+            <br>
+            <span class="purple">print</span>(a) <br>
+        </p>
+    </div>
+    <div class="card" id="shake">
+        <h3>Шейкерная сортировка</h3>
+        <p>
+            Шейкерная сортировка отличается от пузырьковой тем, что она двунаправленная: алгоритм перемещается не строго слева направо, а сначала слева направо, затем справа налево.
+        </p>
+        <h5>Пример реализации</h5>
+        <p class="code">
+            <span class="orange"> def</span> <span class="yellow"> shaker_sort</span>(array): <br>
+            &nbsp &nbsp length = <span class="purple">len</span>(array) <br>
+            &nbsp &nbsp swapped = <span class="orange">True</span> <br>
+            &nbsp &nbsp start_index = <span class="blue">0</span> <br>
+            &nbsp &nbsp end_index = length - <span class="blue">1</span> <br>
+            <br>
+            &nbsp &nbsp <span class="orange">while</span> (swapped == <span class="orange">True</span>): <br>
+            &nbsp &nbsp &nbsp &nbsp swapped = <span class="orange"> False</span> <br>
+            &nbsp &nbsp &nbsp &nbsp <span class="orange">for</span> i <span class="orange">in</span> <span class="purple"> range</span>(start_index<span class="orange">,</span> end_index): <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <span class="orange"> if</span> array[i] > array[i + <span class="blue">1</span>]: <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp array[i]<span class="orange">,</span> array[i + <span class="blue">1</span>] = array[i + <span class="blue">1</span>]<span class="orange">,</span> array[i] <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp swapped = <span class="orange">True</span> <br>
+            &nbsp &nbsp &nbsp &nbsp <span class="orange"> if</span> (<span class="orange">not</span> (swapped)): <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp   <span class="orange">break</span> <br>
+            &nbsp &nbsp &nbsp &nbsp swapped = <span class="orange">False</span> <br>
+            &nbsp &nbsp &nbsp &nbsp end_index = end_index - <span class="blue">1</span> <br>
+            &nbsp &nbsp &nbsp &nbsp <span class="orange">for</span> i <span class="orange">in </span> <span class="purple"> range</span>(end_index - <span class="blue">1</span><span class="orange">,</span> start_index - <span class="blue">1</span><span class="orange">,</span> -<span class="blue">1</span>): <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <span class="orange"> if</span> array[i] > array[i + <span class="blue">1</span>]: <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp array[i]<span class="orange">,</span> array[i + <span class="blue">1</span>] = array[i + <span class="blue">1</span>]<span class="orange">,</span> array[i] <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp swapped = <span class="orange">True</span> <br>
+            &nbsp &nbsp &nbsp &nbsp <span class="orange"> if</span> (<span class="orange">not</span> (swapped)): <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <span class="orange">break</span> <br>
+            &nbsp &nbsp &nbsp &nbsp start_index = start_index + <span class="blue">1</span> <br>
+            <br>
+            arr = [] <br>
+            length = <span class="purple">int</span>(<span class="purple">input</span>()) <br>
+            <span class="orange">for</span> i <span class="orange">in</span> <span class="purple"> range</span>(<span class="blue">0</span><span class="orange">,</span> length): <br>
+            &nbsp &nbsp <span class="purple">print</span>(<span class="green">"array["</span><span class="orange">,</span> i + <span class="blue">1</span><span class="orange">,</span> <span class="green">"] = "</span>) <br>
+            &nbsp &nbsp element = <span class="purple">int</span>(<span class="purple">input</span>()) <br>
+            &nbsp &nbsp arr.append(element) <br>
+            <span class="purple">print</span>(arr) <br>
+            shaker_sort(arr) <br>
+            <span class="purple">print</span>(arr) <br>
+        </p>
+
+    </div>
+    <div class="card" id="insertions">
+        <h3>Сортировка вставками</h3>
+        <p>
+            При сортировке вставками массив постепенно перебирается слева направо. При этом каждый последующий элемент размещается так, чтобы он оказался между ближайшими элементами с минимальным и максимальным значением.
+        </p>
+        <h5>Пример реализации</h5>
+        <p class="code">
+            N = <span class="purple">int</span>(<span class="purple">input</span>())<br>
+            arr = N * [<span class="blue">0</span>]<br>
+            <br>
+            <span class="orange">for</span> i <span class="orange">in</span> <span class="purple"> range</span>(N):<br>
+            &nbsp &nbsp <span class="purple">print</span>(<span class="green">'a['</span><span class="orange">,</span> i<span class="orange">,</span> <span class="green">']='</span>)<br>
+            &nbsp &nbsp arr[i] = <span class="purple">int</span>(<span class="purple">input</span>())<br>
+            <br>
+            <span class="purple">print</span>(arr)<br>
+            <br>
+            <br>
+            <span class="orange">for</span> i <span class="orange">in</span> <span class="purple"> range</span>(<span class="blue">1</span><span class="orange">,</span> <span class="purple">len</span>(arr)): <br>
+            &nbsp &nbsp key = arr[i]<br>
+            &nbsp &nbsp j = i - <span class="blue">1</span> <br>
+            &nbsp &nbsp <span class="orange">while</span> j >= <span class="blue">0</span> <span class="orange">and</span> key < arr[j]:<br>
+            &nbsp &nbsp &nbsp &nbsp arr[j + <span class="blue">1</span>] = arr[j]<br>
+            &nbsp &nbsp &nbsp &nbsp j -= <span class="blue">1</span> <br>
+            &nbsp &nbsp arr[j + <span class="blue">1</span>] = key <br>
+            <br>
+            <br>
+            <span class="purple">print</span>(arr)<br>
+        </p>
+    </div>
+    <div class="card" id="selection">
+        <h3>Сортировка выбором</h3>
+        <p>
+            Сначала нужно рассмотреть подмножество массива и найти в нём максимум (или минимум). Затем выбранное значение меняют местами со значением первого неотсортированного элемента. Этот шаг нужно повторять до тех пор, пока в массиве не закончатся неотсортированные подмассивы.
+        </p>
+        <h5>Пример реализации</h5>
+        <p class="code">
+            <span class="orange"> def</span> <span class="yellow"> select_sort</span>(A): <br>
+            &nbsp &nbsp <span class="orange">for</span> i <span class="orange">in</span> <span class="purple"> range</span>(<span class="purple">len</span>(A) - <span class="blue">1</span>):<br>
+            &nbsp &nbsp &nbsp &nbsp min_index = i <br>
+            &nbsp &nbsp &nbsp &nbsp <span class="orange">for</span> k <span class="orange">in</span> <span class="purple">range</span>(i + <span class="blue">1</span><span class="orange">,</span> <span class="purple">len</span>(A)):<br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <span class="orange">if</span> A[k] < A[min_index]:<br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp min_index = k <br>
+            &nbsp &nbsp &nbsp &nbsp A[i]<span class="orange">,</span> A[min_index] = A[min_index]<span class="orange">,</span> A[i] <br>
+            &nbsp &nbsp <span class="orange">return</span> A <br>
+            <br>
+            <br>
+            N = <span class="purple">int</span>(<span class="purple">input</span>())<br>
+            a = N * [<span class="blue">0</span>]<br>
+            <br>
+            <br>
+            <span class="orange">for</span> i <span class="orange">in</span> <span class="purple">range</span>(N): <br>
+            &nbsp &nbsp <span class="purple">print</span>(<span class="green">'a['</span><span class="orange">,</span> i + <span class="blue">1</span><span class="orange">,</span> <span class="green">']='</span>) <br>
+            &nbsp &nbsp a[i] = <span class="purple">int</span>(<span class="purple">input</span>()) <br>
+            <br>
+            <span class="purple">print</span>(a)
+            <br>
+            a = select_sort(a)<br>
+            <span class="purple">print</span>(a)<br>
+        </p>
+    </div>
+    <div class="card" id="shell">
+        <h3>Сортировка Шелла</h3>
+        <p>
+            Идея метода заключается в сравнение разделенных на группы элементов последовательности, находящихся друг от друга на некотором расстоянии. Изначально это расстояние равно d или N/2, где N — общее число элементов. На первом шаге каждая группа включает в себя два элемента расположенных друг от друга на расстоянии N/2; они сравниваются между собой, и, в случае необходимости, меняются местами. На последующих шагах также происходят проверка и обмен, но расстояние d сокращается на d/2, и количество групп, соответственно, уменьшается. Постепенно расстояние между элементами уменьшается, и на d=1 проход по массиву происходит в последний раз.
+        </p>
+        <h5>Пример реализации</h5>
+        <p class="code">
+            <span class="orange">import</span> math <br>
+            <br>
+            <span class="orange">def</span> <span class="yellow">shell_sort</span>(array): <br>
+            &nbsp &nbsp n = <span class="purple">len</span>(array) <br>
+            &nbsp &nbsp k = <span class="purple">int</span>(math.log2(n)) <br>
+            &nbsp &nbsp interval = <span class="blue">2</span>**k - <span class="blue">1</span> <br>
+            &nbsp &nbsp <span class="orange">while</span> interval > <span class="blue">0</span>: <br>
+            &nbsp &nbsp &nbsp &nbsp <span class="orange">for</span> i <span class="orange">in</span> <span class="purple">range</span>(interval<span class="orange">,</span> n): <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp temp = array[i] <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp j = i <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <span class="orange">while</span> j >= interval <span class="orange">and</span> array[j - interval] > temp: <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp array[j] = array[j - interval] <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp j -= interval <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp array[j] = temp <br>
+            &nbsp &nbsp &nbsp &nbsp k -= <span class="blue">1</span> <br>
+            &nbsp &nbsp &nbsp &nbsp interval = <span class="blue">2</span>**k - <span class="blue">1</span> <br>
+            &nbsp &nbsp <span class="orange">return</span> array <br>
+            <br>
+            <br>
+            N = <span class="purple">int</span>(<span class="purple">input</span>()) <br>
+            array = N * [<span class="blue">0</span>] <br>
+            <br>
+            <br>
+            <span class="orange">for</span> i <span class="orange">in</span> <span class="purple">range</span>(N): <br>
+            &nbsp &nbsp <span class="purple">print</span>(<span class="green">'a['</span><span class="orange">,</span> i + <span class="blue">1</span><span class="orange">,</span> <span class="green">']='</span>) <br>
+            &nbsp &nbsp array[i] = <span class="purple">int</span>(<span class="purple">input</span>()) <br>
+            <br>
+            <br>
+            <span class="purple">print</span>(shell_sort(array))<br>
+            <br>
+        </p>
+    </div>
+    <div class="card" id="merge">
+        <h3>Сортировка слиянием</h3>
+        <p>
+            Сортировка слиянием пригодится для таких структур данных, в которых доступ к элементам осуществляется последовательно (например, для потоков). Здесь массив разбивается на две примерно равные части и каждая из них сортируется по отдельности. Затем два отсортированных подмассива сливаются в один.
+        </p>
+        <h5>Пример реализации</h5>
+        <p class="code">
+            <span class="orange">def</span> <span class="yellow">merge</span>(arr): <br>
+            &nbsp &nbsp <span class="orange">if</span> <span class="purple">len</span>(arr) > <span class="blue">1</span>:<br>
+            &nbsp &nbsp &nbsp &nbsp mid = <span class="purple">len</span>(arr) // <span class="blue">2</span> <br>
+            &nbsp &nbsp &nbsp &nbsp left_half = arr[:mid] <br>
+            &nbsp &nbsp &nbsp &nbsp right_half = arr[mid:] <br>
+            &nbsp &nbsp &nbsp &nbsp merge(left_half) <br>
+            &nbsp &nbsp &nbsp &nbsp merge(right_half) <br>
+            &nbsp &nbsp &nbsp &nbsp i = j = k = <span class="blue">0</span> <br>
+            &nbsp &nbsp &nbsp &nbsp <span class="orange">while</span> i < <span class="purple">len</span>(left_half) <span class="orange">and</span> j < <span class="purple">len</span>(right_half): <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <span class="orange">if</span> left_half[i] < right_half[j]: <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp arr[k] = left_half[i] <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp i += <span class="blue">1</span> <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <span class="orange">else</span>: <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp arr[k] = right_half[j] <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp j += <span class="blue">1</span> <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp k += <span class="blue">1</span> <br>
+            &nbsp &nbsp &nbsp &nbsp <span class="orange">while</span> i < len(left_half): <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp arr[k] = left_half[i] <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp i += <span class="blue">1</span> <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp k += <span class="blue">1</span> <br>
+            &nbsp &nbsp &nbsp &nbsp <span class="orange">while</span> j < <span class="purple">len</span>(right_half): <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp arr[k] = right_half[j] <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp j += <span class="blue">1</span> <br>
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp k += <span class="blue">1</span> <br>
+            <br>
+            <span class="orange">with</span> <span class="purple">open</span>(<span class="green">"input.txt"</span><span class="orange">,</span> <span class="green">"r"</span>) <span class="orange">as</span> f: <br>
+            &nbsp &nbsp arr = <span class="purple">list</span>(<span class="purple">map</span>(<span class="purple">int</span><span class="orange">,</span> f.readline().split())) <br>
+            &nbsp &nbsp merge(arr) <br>
+            <span class="orange">with</span> <span class="purple">open</span>(<span class="green">"output.txt"</span><span class="orange">,</span> <span class="green">"w"</span>) <span class="orange">as</span> f: <br>
+            &nbsp &nbsp f.write(<span class="green">" "</span>.join(<span class="purple">map</span>(<span class="purple">str</span><span class="orange">,</span> arr))) <br>
+        </p>
+
+    </div>
+    <div class="card" id="pyramid">
+        <h3>Пирамидальная сортировка</h3>
+        <p>
+            При этой сортировке сначала строится пирамида из элементов исходного массива. Пирамида (или двоичная куча) — это способ представления элементов, при котором от каждого узла может отходить не больше двух ответвлений. А значение в родительском узле должно быть больше значений в его двух дочерних узлах.
+        </p>
+        <p>
+            Пирамидальная сортировка похожа на сортировку выбором, где мы сначала ищем максимальный элемент, а затем помещаем его в конец. Дальше нужно рекурсивно повторять ту же операцию для оставшихся элементов.
+        </p>
+        <h5>Пример реализации</h5>
+        <p class="code">
+            <span class="orange">def</span> <span class="yellow">heapsort</span>(alist): <br>
+            &nbsp &nbsp build_max_heap(alist) <br>
+            &nbsp &nbsp <span class="orange">for</span> i <span class="orange">in</span> <span class="purple">range</span>(<span class="purple">len</span>(alist) - <span class="blue">1</span><span class="orange">,</span> <span class="blue">0</span><span class="orange">,</span> -<span class="blue">1</span>): <br>
+            &nbsp &nbsp &nbsp &nbsp alist[<span class="blue">0</span>]<span class="orange">,</span> alist[i] = alist[i]<span class="orange">,</span> alist[<span class="blue">0</span>] <br>
+            &nbsp &nbsp &nbsp &nbsp max_heapify(alist<span class="orange">,</span> <span class="red">index</span>=0<span class="orange">,</span> <span class="red">size</span>=i) <br>
+            <span class="orange">def</span> <span class="yellow">parent</span>(i): <br>
+            &nbsp &nbsp <span class="orange">return</span> (i - <span class="blue">1</span>) // <span class="blue">2</span> <br>
+            <span class="orange">def</span> <span class="yellow">left</span>(i): <br>
+            &nbsp &nbsp <span class="orange">return</span> <span class="blue">2</span> * i + <span class="blue">1</span> <br>
+            <span class="orange">def</span> <span class="yellow">right</span>(i): <br>
+            &nbsp &nbsp <span class="orange">return</span> <span class="blue">2</span> * i + <span class="blue">2</span> <br>
+            <span class="orange">def</span> <span class="yellow">build_max_heap</span>(alist): <br>
+            &nbsp &nbsp length = <span class="purple">len</span>(alist) <br>
+            &nbsp &nbsp start = parent(length - <span class="blue">1</span>) <br>
+            &nbsp &nbsp <span class="orange">while</span> start >= <span class="blue">0</span>: <br>
+            &nbsp &nbsp &nbsp &nbsp max_heapify(alist<span class="orange">,</span> <span class="red">index</span>=start<span class="orange">,</span> <span class="red">size</span>=length) <br>
+            &nbsp &nbsp &nbsp &nbsp start = start - <span class="blue">1</span> <br>
+            <span class="orange">def</span> <span class="yellow">max_heapify</span>(alist<span class="orange">,</span> index<span class="orange">,</span> size): <br>
+            &nbsp &nbsp l = left(index) <br>
+            &nbsp &nbsp r = right(index) <br>
+            &nbsp &nbsp <span class="orange">if</span> (l < size <span class="orange">and</span> alist[l] > alist[index]): <br>
+            &nbsp &nbsp &nbsp &nbsp largest = l <br>
+            &nbsp &nbsp <span class="orange">else</span>: <br>
+            &nbsp &nbsp &nbsp &nbsp largest = index <br>
+            &nbsp &nbsp <span class="orange">if</span> (r < size <span class="orange">and</span> alist[r] > alist[largest]): <br>
+            &nbsp &nbsp &nbsp &nbsp largest = r <br>
+            &nbsp &nbsp <span class="orange">if</span> (largest != index): <br>
+            &nbsp &nbsp &nbsp &nbsp alist[largest]<span class="orange">,</span> alist[index] = alist[index]<span class="orange">,</span> alist[largest] <br>
+            &nbsp &nbsp &nbsp &nbsp max_heapify(alist<span class="orange">,</span> largest<span class="orange">,</span> size) <br>
+            alist = <span class="purple">input</span>(<span class="green">'Enter the list of numbers: '</span>).split() <br>
+            alist = [<span class="purple">int</span>(x) <span class="orange">for</span> x <span class="orange">in</span> alist] <br>
+            heapsort(alist) <br>
+            <span class="purple">print</span>(<span class="green">'Sorted list: '</span><span class="orange">,</span> <span class="red">end</span>=<span class="green">''</span>) <br>
+            <span class="purple">print</span>(alist) <br>
+        </p>
+    </div>
+    <div class="card" id="quick">
+        <h3>Быстрая сортировка</h3>
+        <p>
+            Этот алгоритм состоит из трёх шагов. Сначала из массива нужно выбрать один элемент — его обычно называют опорным. Затем другие элементы в массиве перераспределяют так, чтобы элементы меньше опорного оказались до него, а большие или равные — после. А дальше рекурсивно применяют первые два шага к подмассивам справа и слева от опорного значения.
+        </p>
+        <h5>Пример реализации</h5>
+        <p class="code">
+            <span class="orange">import</span> random <br>
+            <br>
+            <br>
+            <span class="orange">def</span> <span class="yellow">quicksort</span>(nums): <br>
+            &nbsp &nbsp <span class="orange">if</span> <span class="purple">len</span>(nums) <= <span class="blue">1</span>: <br>
+            &nbsp &nbsp &nbsp &nbsp <span class="orange">return</span> nums <br>
+            &nbsp &nbsp <span class="orange">else</span>: <br>
+            &nbsp &nbsp &nbsp &nbsp q = random.choice(nums) <br>
+            &nbsp &nbsp l_nums = [n <span class="orange">for</span> n <span class="orange">in</span> nums <span class="orange">if</span> n < q] <br>
+            <br>
+            &nbsp &nbsp e_nums = [q] * nums.count(q) <br>
+            &nbsp &nbsp b_nums = [n <span class="orange">for</span> n <span class="orange">in</span> nums <span class="orange">if</span> n > q] <br>
+            &nbsp &nbsp <span class="orange">return</span> quicksort(l_nums) + e_nums + quicksort(b_nums) <br>
+            <br>
+            <br>
+            alist = <span class="purple">input</span>(<span class="green">'Enter the list of numbers: '</span>).split() <br>
+            alist = [<span class="purple">int</span>(x) <span class="orange">for</span> x <span class="orange">in</span> alist] <br>
+            <span class="purple">print</span>(quicksort(alist)) <br>
+        </p>
+    </div>
+    <div class="card">
+        <p>Источник: </p>
+        <a target="_blank" class="lnk2" href="https://academy.yandex.ru/journal/osnovnye-vidy-sortirovok-i-primery-ikh-realizatsii">https://academy.yandex.ru/journal/osnovnye-vidy-sortirovok-i-primery-ikh-realizatsii</a>
+    </div>
+
+</body>
+</html>
